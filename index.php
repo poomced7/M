@@ -25,9 +25,12 @@ if($_GET["app"] == "admin"){
 if($_GET["app"] == "logout"){
           include ("dashboard/logout.php"); 
           }else
-
-     
-
+if($_GET["app"] == "register"){
+          include ("./register.php"); 
+          }else
+if($_GET["app"] == "success"){
+          include ("control/success.php"); 
+          }else
 
 
 {

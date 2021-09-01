@@ -34,7 +34,7 @@ if($tokencheck->num_rows <= 0){
     $_SESSION["swal"] = "notify";
        $title ="กำลังพาไปยังการจัดการระบบ Admin..";
        $text = "กรุณารอสักครู่...";
-       $icon ="settings";
+       $icon ="success";
        $link = "./?app=admin&token=$token";
        }else{
   if($user_status == "member"){

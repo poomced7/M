@@ -85,7 +85,7 @@
     
     <div class="col">
       <button type="submit" name="login" class="btn btn-block btn-outline-success">Login <i class="fa fa-sign-in"></i></button>
-	  <button type="submit" name="register" class="btn btn-block btn-outline-warning">Register <i class="fa fa-address-card"></i></button>
+	  <a href="./?app=register" class="btn btn-block btn-outline-warning" role="button" aria-pressed="true">Register <i class="fa fa-exclamation-circle"></i></a>
 	  <button type="submit" name="forgot" class="btn btn-block btn-outline-danger">Forgot Password <i class="fa fa-exclamation-circle"></i></button>
     </div>
  
