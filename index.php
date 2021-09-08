@@ -31,7 +31,13 @@ if($_GET["app"] == "register"){
 if($_GET["app"] == "success"){
           include ("control/success.php"); 
           }else
-
+if($_GET["app"] == "score"){
+          include ("dashboard/score.php"); 
+           }else
+if($_GET["app"] == "del"){
+          include ("dashboard/setting/del.php"); 
+          }else
+     
 
 {
      $_SESSION["swal"] = "notify";

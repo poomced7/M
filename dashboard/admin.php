@@ -28,6 +28,7 @@ while ($row = $showtoken->fetch_array()) {
   $name = $row["name"];
   $lastname = $row["lastname"];
   $user_status = $row["user_status"];
+  $role = $row["role"];
 }
 
 
@@ -61,7 +62,7 @@ if($tokencheck->num_rows <= 0){
     $button = "ตกลง";
     $link = "./?app=home";
 }else{
-    if($user_status == "member"){
+    if($role == "0"){
       unset($_SESSION['online']);
       $_SESSION["swal"] = "notify";
          $title ="ไม่มีสิทธิ์เข้าถึงหน้านี้..";
@@ -263,11 +264,13 @@ function drawChart() {
       <td><?php echo $row['username']; ?></td>
       <td><?php echo $row['user_status']; ?></td>
       <td><?php echo $row['point']; ?></td>
-      <td><button type="button" class="btn btn-success">แก้ไข</button>&nbsp;<button type="button" class="btn btn-danger">ลบ</button></td>
+      <td><button type="button" class="btn btn-success">แก้ไข</button>&nbsp;
+      <a href='.?app=del&id=" <?php echo $row['id'] ; ?>"' class="btn btn-danger" role="button" aria-pressed="true">ลบ</a>
+    </td>
     </tr>
     <?php endwhile ?>
   </tbody>
-</table>
+</table>                                  href='.?app=del&id=".$row['id']."'
 
 
  </div>

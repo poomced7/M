@@ -48,7 +48,48 @@ if($tokencheck->num_rows <= 0){
 }
 
  
+  
 
+?>
+
+
+
+    <nav class="navbar navbar-dark bg-success">
+        <a href="/" class="navbar-brand">P.G.R. Machine</a>
+        <button class="navbar-toggler ml-auto custom-toggler" type="button" data-toggle="collapse" data-target="#nav3">
+            <span class="navbar-toggler-icon "style="color:#000";></span>
+        </button>
+        <div class="navbar-collapse collapse" id="nav3">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="?app=dashboard&token=<?php echo $token;?>">หน้าแรก</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">คะแนนของฉัน</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">ข้อมูลส่วนตัว</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+  
+
+
+
+<div class="alert alert-info" role="alert">
+<center><h5>ยินดีต้อนรับ คุณ <?php echo $name;?> <?php echo $lastname;?> &nbsp;🟢</h5></center>
+</div>
+
+<div class="alert alert-success" role="alert">
+  <center><h4 class="alert-heading">QR Code ของท่าน</h4>
+  <p> 
+
+
+
+
+  <?php
 
 class QrCode {
 
@@ -130,82 +171,20 @@ class QrCode {
 
 $qr = new QrCode();
 $t12 = $token; 
-?>
+echo $qr->text("http://localhost:100/amz/?app=dashboard&token=$t12");?>
 
 
 
 
-    <nav class="navbar navbar-dark bg-success">
-        <a href="/" class="navbar-brand">P.G.R. Machine</a>
-        </button>
-        
-    </nav>
-
-    <div class="alert alert-info" role="alert">
-<center><h5>ยินดีต้อนรับ คุณ <?php echo $name;?> <?php echo $lastname;?> &nbsp;🟢</h5></center>
-</div>
-
-
-
-<center><ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
- <li class="nav-item">
-    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">QR Code</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">คะแนนสะสม</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">ข้อมูลส่วนตัว</a>
-  </li>
-</ul><center> 
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-  <div class="alert alert-success" role="alert">
-  <center><h4 class="alert-heading">QR Code ของท่าน</h4>
-  <?php echo $qr->text("http://localhost:100/amz/?app=dashboard&token=$t12"); ?>
-  <br>
-  <br><a onClick="window.location.reload();" class="btn btn-outline-warning btn-lg btn-block" role="button" aria-pressed="true">สุ่ม QR Code ใหม่</a></center><br>
- 
-  </div>
-
-
-
-  </div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
     
-  <div class="alert alert-success" role="alert">
-  <center><h5 class="alert-heading">จำนวนแต้มสะสมของท่านขณะนี้</h5>
-  <h1><?php  echo "<div style=\"font-size:120px;\"> $point </div>" ;?> </h1> <p><h5>แต้ม</h5></p>
-</div>
+  
+  
   <br>
 
   <div class="alert alert-secondary" role="alert">
-  <p class="mb-0">หากสะสมแต้มครบแล้วสามารถนำไปแลกของรางวัลตามที่ระบุไว้ได้ที่พนักงาน !!</p>
-  <hr>
-
-  <a onClick="window.location.reload();" class="btn btn-outline-dark btn-lg btn-block" role="button" aria-pressed="true">รีเฟรชคะแนน</a></center><br>
-
-
-  </div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab"><?php 
   
-  ?></div>
-</div>
-
-
-
-
-
-
-
-  
-
-
-
-
-<div class="alert alert-success" role="alert">
-  
-
+  <a onClick="window.location.reload();" class="btn btn-outline-dark btn-lg btn-block" role="button" aria-pressed="true">สุ่ม QR Code ใหม่</a></center><br>
+  <a href="./?app=score" class="btn btn-outline-info btn-lg btn-block" role="button" aria-pressed="true">ของรางวัล</a></center><br>
   <a href="./?app=logout" class="btn btn-outline-danger btn-lg btn-block" role="button" aria-pressed="true">ออกจากระบบ</a></center><br>
 
 
@@ -219,4 +198,3 @@ $t12 = $token;
 
 
 
-</html>
