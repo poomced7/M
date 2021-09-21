@@ -32,7 +32,7 @@ while ($row = $showtoken->fetch_array()) {
 }
 
 
-
+$_SESSION['admin'] = $token;
 $showtotal = $conn->query("SELECT * FROM total WHERE id = '1' ");
 while ($row = $showtotal->fetch_array()) {
   $branch = $row["branch"];
@@ -70,9 +70,9 @@ if($tokencheck->num_rows <= 0){
          $link = "./?app=home";}
          else{
 
-          $sql_list = $conn->query("SELECT count(user_status) as count,user_status FROM member GROUP BY user_status"); //หาว่ามี user กี่คน
+          $sql_list = $conn->query("SELECT count(role) as count,role FROM member GROUP BY role "); //หาว่ามี user กี่คน
           while($row = $sql_list->fetch_array()){
-          $user_status = $row["user_status"];
+          $$role = $row["role"];
           $user_num = $row["count"];
           }
           
@@ -142,10 +142,10 @@ if($tokencheck->num_rows <= 0){
 <div class="card-body card-body pb-0 d-flex justify-content-between align-items-start">
 <div>
 <div class="text-value-lg">
-  <?php if($user_status == "member"){
+  <?php if($role == 1){
 echo $user_num ;
 }else{
-echo "0";
+echo "ee";
 } ?>
 </div>
 <div>Members</div>
@@ -233,12 +233,14 @@ function drawChart() {
   <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
 
   <div class="container">
+
 <div class="row">
   <div class="col-12 ">
   <hr color="#FFFFFF">
 <center><h3>จัดการสมาชิก</h3></center>
 <hr color="#FFFFFF">
 
+<input type="text" class="form-control" name="name" placeholder="Enter Name" autocomplete="off" required>
 
 
   <table class="table table-hover table-dark">
@@ -249,7 +251,7 @@ function drawChart() {
       <th scope="col">Lastname</th>
       <th scope="col">Email</th>
       <th scope="col">Username</th>
-      <th scope="col">Status</th>
+      <th scope="col">Role</th>
       <th scope="col">Point</th>
       <th scope="col">Setting</th>
     </tr>
@@ -262,15 +264,120 @@ function drawChart() {
       <td><?php echo $row['lastname']; ?></td>
       <td><?php echo $row['email']; ?></td>
       <td><?php echo $row['username']; ?></td>
-      <td><?php echo $row['user_status']; ?></td>
+      <td><?php $role = $row['role'];
+      if($role == '0'){
+        echo "MEMBER";
+      }else{
+        echo "ADMIN";
+      }
+      ?></td>
       <td><?php echo $row['point']; ?></td>
-      <td><button type="button" class="btn btn-success">แก้ไข</button>&nbsp;
-      <a href='.?app=del&id=" <?php echo $row['id'] ; ?>"' class="btn btn-danger" role="button" aria-pressed="true">ลบ</a>
+      <td>
+        <div class="row">
+<div class="col-6">
+<font color="#000"> 
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#exampleModal<?php echo $row['id']; ?>">
+  แก้ไข
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">แก้ไขข้อมูล <?php echo $row['name']; ?></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST">
+    <input type="hidden" class="form-control" name="iduser" placeholder="Enter id" value="<?php echo $row['id']; ?>" autocomplete="off" required>
+
+      <label for="exampleInputname">Name</label>
+    <input type="text" class="form-control" name="name" placeholder="Enter Name" value="<?php echo $row['name']; ?>" autocomplete="off" required>
+    <label for="exampleInputlastname">LastName</label>
+    <input type="text" class="form-control" name="lastname" placeholder="Enter LastName" value="<?php echo $row['lastname']; ?>" autocomplete="off" required>
+    <label for="exampleInputemail">Email</label>
+    <input type="text" class="form-control" name="email" placeholder="Enter E-mail" value="<?php echo $row['email']; ?>" autocomplete="off" required>
+    <label for="exampleInputUsername">Username</label>
+    <input type="text" class="form-control" name="Username" placeholder="Enter Username" value="<?php echo $row['username']; ?>" autocomplete="off" required>
+    <label for="exampleInputpoint">Point</label>
+    <input type="text" class="form-control" name="point" placeholder="Enter Point" value="<?php echo $row['point']; ?>" autocomplete="off" required>
+    <label for="exampleInputRole">Role</label>
+    <select class="form-control" name="role">
+      <option value="1">admin</option>
+      <option value="0">member</option>
+    </select>
+
+    
+
+
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <button type="submit" name="edituser" class="btn btn-primary">Save changes</button>
+    </form>
+      </div>
+    </div>
+  </div>
+</div>
+    </font>
+
+</div>
+  <div class="col-6">
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModalCenter<?php echo $row['id']; ?>">
+  ลบ
+</button>
+
+<!-- Modal -->
+<font color="#000">
+<div class="modal fade" id="exampleModalCenter<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">ข้อความจากระบบ</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>คูณต้องการ ลบ User :
+      <?php echo $row['name']; ?>
+      นี้หรือไม่ ? </h5>
+      </div>
+     
+        <div class="row m-2">
+          <div class="col-6">
+       <a href=".?app=del&id=<?php echo $row['id']; ?>"  class="btn btn-danger btn-block" role="button" aria-pressed="true">ยืนยัน</a>
+          </div>
+          <div class="col-6">
+          <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">ยกเลิก</button>
+
+          </div>
+        </div>
+
+     
+    </div>
+  </div>
+</div>
+    </font>
+  </div>      
+        </div>
+
+     
+
+
+
+
+
     </td>
     </tr>
     <?php endwhile ?>
   </tbody>
-</table>                                  href='.?app=del&id=".$row['id']."'
+</table>                        
 
 
  </div>
@@ -282,7 +389,12 @@ function drawChart() {
   <!--หน้าที่3-->
   <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">.3..</div><!--หน้าที่3-->
   <!--หน้าที่4-->
-  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">..4.</div><!--หน้าที่4-->
+  <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">..4.
+
+  
+
+
+  </div><!--หน้าที่4-->
 </div>
   </div>
   </div>

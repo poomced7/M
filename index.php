@@ -37,8 +37,9 @@ if($_GET["app"] == "score"){
 if($_GET["app"] == "del"){
           include ("dashboard/setting/del.php"); 
           }else
-     
-
+ if($_GET["app"] == "edit"){
+          include ("dashboard/setting/edit.php"); 
+          }else
 {
      $_SESSION["swal"] = "notify";
      $title ="กำลังโหลดข้อมูล..";
